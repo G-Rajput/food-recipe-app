@@ -1,4 +1,5 @@
 import React, { createContext, FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface GlobalStateProps {
   children: React.ReactNode;
@@ -13,6 +14,8 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [recipeDetailsData, setRecipeDetailsData] = useState(null);
   const [favoriteslist, setFavoriteslist] = useState([]);
 
+  const navigate = useNavigate();
+
   async function handleSubmit(event: Event) {
     event.preventDefault();
     setLoading(true);
@@ -26,6 +29,7 @@ const GlobalState: FC<GlobalStateProps> = ({ children }) => {
         setRecipeList(data?.data?.recipes);
         setLoading(false);
         setSearchParam("");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
